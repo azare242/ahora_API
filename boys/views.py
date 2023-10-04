@@ -18,13 +18,3 @@ class Ping(APIView):
 def echo(request, msg):
     return Response({"you said": msg}, status=status.HTTP_200_OK)
 
-
-
-@api_view(['GET'])
-def payment(request):
-    res = PayPingRequest().create_payment('123', 1000, 'alireza', '09019534878', "wolvahor@gmail.com", "test", PayPing_CALL_BACK);
-    return Response(res)
-
-@api_view(['POST'])
-def verify_payment(request):
-    return Response(request.POST)
