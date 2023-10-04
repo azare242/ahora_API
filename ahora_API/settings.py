@@ -123,6 +123,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-PAYPING = "0wu2wQyUz8Pq4mB6c8-hjCOSZOUBUS9HK0KHhRppIg0"
