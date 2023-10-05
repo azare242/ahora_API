@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,7 +26,10 @@ SECRET_KEY = 'django-insecure-y^ffvp!y#r6b44j!52%jw0g^faio&2rhh*w71s6l#38_=wi$g^
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+STATIC_URL = '/staticfiles/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+MEDIA_URL =  os.path.join(BASE_DIR, 'staticfiles/web/media/') if DEBUG else os.path.join('', 'staticfiles/web/media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'staticfiles/web/media/')
 
 # Application definition
 
@@ -38,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'boys',
+    'RequestsService'
     
 ]
 
