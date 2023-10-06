@@ -7,6 +7,10 @@ import json
 # Create your views here.
 
 
+@api_view(['GET'])
+def ping(request):
+    return Response({"PING": "PONG"})
+
 @api_view(['POST'])
 def submit_request(request):
     
