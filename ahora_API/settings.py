@@ -136,3 +136,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 HASHID_FIELD_SALT = '$oknhgfcv$!#$!@$mkloiuy8767$#!$@#8490398!#@$!'  # Replace with your secret salt
 HASHID_FIELD_ALLOW_INT_LOOKUP = True  # Allow looking up by integer value
+
+
+#Celery
+CELERY_BROKER_URL = \
+'amqps://fhisssit:L49-h0zwCZ5D4SKkQm9I25NMhfriMf0G@chimpanzee.rmq.cloudamqp.com/fhisssit'
