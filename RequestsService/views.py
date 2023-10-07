@@ -5,7 +5,7 @@ from .models import Customer
 from rest_framework.decorators import api_view
 from .serializers import CustomerSerializer
 # Create your views here.
-
+from PIL import Image
 
 @api_view(['GET'])
 def ping(request):
@@ -26,7 +26,12 @@ def submit_request(request):
             customer_requests[0].state = "P"
             customer_requests[0].save()
             return Response({"message": "Your Request Submited Again"})
-        new_customer = Customer(email=request.data['email'], last_name=request.data['last_name'], national_id=request.data['national_id'], user_ip=client_ip, state="P")
+        new_customer = Customer(email=request.data['email'],
+                                last_name=request.data['last_name'],
+                                national_id=request.data['national_id'],
+                                img1=request.data['img1'],
+                                img2=request.data['img2'],
+                                user_ip=client_ip, state="P")
         new_customer.save()
         return Response({"message": "Your Request Submited"}, status=200)
     except:
@@ -56,3 +61,9 @@ def get_status(request):
     except :
         return Response({"message": "ERROR"}, status=400)
         
+        
+        
+@api_view(['POST'])
+def test_images(request):
+    # print(request.data['img'])
+    return Response({"message": "??"})
