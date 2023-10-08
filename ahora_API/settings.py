@@ -141,3 +141,11 @@ HASHID_FIELD_ALLOW_INT_LOOKUP = True  # Allow looking up by integer value
 #Celery
 CELERY_BROKER_URL = \
 'amqps://fhisssit:L49-h0zwCZ5D4SKkQm9I25NMhfriMf0G@chimpanzee.rmq.cloudamqp.com/fhisssit'
+
+
+#S3
+S3_ENDPOINT = 'https://cloudhw-ahora.s3.ir-tbz-sh1.arvanstorage.ir'
+S3_ACCESS_KEY = '7af1a7fd-876b-41e6-ba85-d070c78e8c9c'
+S3_SECRET_KEY = 'efa744fce877e3d4d064a5a830a97f93fe94576b92100530e0ad2c676eb0dfe0'
+
+

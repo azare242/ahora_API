@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view
 from .serializers import CustomerSerializer
 # Create your views here.
 from PIL import Image
+from .S3Service import S3
 
 @api_view(['GET'])
 def ping(request):
@@ -33,6 +34,10 @@ def submit_request(request):
                                 img2=request.data['img2'],
                                 user_ip=client_ip, state="P")
         new_customer.save()
+        s3 = S3()
+        s3.insert_object(new_customer.img1.name)
+        s3.insert_object(new_customer.img2.name)
+        
         return Response({"message": "Your Request Submited"}, status=200)
     except:
         return Response({"message": "ERROR"}, status=400)
@@ -65,5 +70,25 @@ def get_status(request):
         
 @api_view(['POST'])
 def test_images(request):
-    # print(request.data['img'])
-    return Response({"message": "??"})
+    try:
+        customer = Customer.objects.get(email=request.data['email'])
+        s3 = S3()
+        a= s3.get_object(customer.img1.name.split('/')[-1])
+        b= s3.get_object(customer.img2.name.split('/')[-1])
+        print(a, b)
+        return Response({"message": 'aha'})
+    except Exception as exc:
+        print(exc)
+        return Response({"na": "da"})
+
+
+
+@api_view(['GET'])
+def run_s3(request):
+    msg = ''
+    try:
+        s3 = S3()
+        msg = 'ok'
+    except Exception as ex:
+        msg = 'error'
+    return Response({"message" : msg})
