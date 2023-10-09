@@ -10,7 +10,6 @@ class Imagga_Request:
         self.__similarity = 'https://api.imagga.com/v2/faces/similarity?face_id=%s&second_face_id=%s'
         
     def detect(self, image):
-        # print(image)
         res = requests.post(
             self.__detection,
             auth=self.__auth,
@@ -19,7 +18,6 @@ class Imagga_Request:
         ).json()
         confidence = res['result']['faces'][0]['confidence']
         face_id = res['result']['faces'][0]['face_id']
-        # print((confidence, face_id))
         return (confidence, face_id)
         
         
