@@ -26,4 +26,5 @@ def check_request(customer):
     if (score >= 80.0):
         customer.state = "A"
         
-    
+    else:
+        customer.state = "R"
