@@ -1,4 +1,4 @@
-from ahora_API.settings import IMAGGA_API_KEY, IMAGGA_AUTH, IMAGGA_SECRET_KEY
+from ahora_API.settings import IMAGGA_API_KEY, IMAGGA_SECRET_KEY
 import requests
 
 
