@@ -27,3 +27,8 @@ class Customer(models.Model):
     state = models.CharField(_("State"), choices=states, null=False, max_length=20)
     img1 = models.ImageField(_("IMG1"), upload_to=image_upload_path_img1, null=True, blank=True)
     img2 = models.ImageField(_("IMG2"), upload_to=image_upload_path_img2, null=True, blank=True)
+    img1_confidence = models.FloatField(_("img1_confidence"), null=True, name="img1_confidence")
+    img2_confidence = models.FloatField(_("img2_confidence"), null=True, name="img2_confidence")
+    img1_faceid = models.CharField(_("img1_faceid"), max_length=1024)
+    img2_faceid = models.CharField(_("img2_faceid"), max_length=1024)
+    

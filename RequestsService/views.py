@@ -7,7 +7,7 @@ from .serializers import CustomerSerializer
 # Create your views here.
 from PIL import Image
 from .S3Service import S3
-
+from .imagga import Imagga_Request
 @api_view(['GET'])
 def ping(request):
     return Response({"PING": "PONG"})
@@ -35,6 +35,7 @@ def submit_request(request):
                                 user_ip=client_ip, state="P")
         new_customer.save()
         s3 = S3()
+        
         s3.insert_object(new_customer.img1.name)
         s3.insert_object(new_customer.img2.name)
         
@@ -73,10 +74,13 @@ def test_images(request):
     try:
         customer = Customer.objects.get(email=request.data['email'])
         s3 = S3()
+        imagga = Imagga_Request()
         a= s3.get_object(customer.img1.name.split('/')[-1])
         b= s3.get_object(customer.img2.name.split('/')[-1])
-        print(a, b)
-        return Response({"message": 'aha'})
+        print(a)
+        c = imagga.detect(a)
+        print(c)
+        return Response({"a": "b"})
     except Exception as exc:
         print(exc)
         return Response({"na": "da"})
