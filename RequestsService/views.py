@@ -26,13 +26,13 @@ def submit_request(request):
         if len(customer_requests) != 0:
             for req in customer_requests:
                 if req.state != "R":
-                    return Response({"message": DUPLICATE})
+                    return Response({"message": DUPLICATE}, status=400)
             
             customer_requests[0].state = "P"
             customer_requests[0].save()
             send_mail_resubmit(customer_requests[0])
             # check_request.delay(customer_requests[0])
-            return Response({"message": SUBMITTED})
+            return Response({"message": RESUBMIT}, status=200)
         new_customer = Customer(email=request.data['email'],
                                 last_name=request.data['last_name'],
                                 national_id=request.data['national_id'],
@@ -46,9 +46,9 @@ def submit_request(request):
         s3.insert_object(new_customer.img2.name)
         send_mail_submit(new_customer)
         # check_request.delay(new_customer)
-        return Response({"message": "Your Request Submited"}, status=200)
-    except:
-        return Response({"message": "ERROR"}, status=400)
+        return Response({"message": SUBMIT}, status=200)
+    except Exception as exc:
+        return Response({"message": str(exc)}, status=500)
     
     
 
@@ -71,8 +71,8 @@ def get_status(request):
         else:
             message = APPROVED
         return Response({"details": message}, status=200)
-    except :
-        return Response({"message": "ERROR"}, status=400)
+    except Exception as exc:
+        return Response({"message": str(exc)}, status=500)
         
         
         
