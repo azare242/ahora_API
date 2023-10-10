@@ -26,13 +26,13 @@ def submit_request(request):
         if len(customer_requests) != 0:
             for req in customer_requests:
                 if req.state != "R":
-                    return Response({"message": "Duplicate National_ID"})
+                    return Response({"message": DUPLICATE})
             
             customer_requests[0].state = "P"
             customer_requests[0].save()
             send_mail_resubmit(customer_requests[0])
             # check_request.delay(customer_requests[0])
-            return Response({"message": "Your Request Submited Again"})
+            return Response({"message": SUBMITTED})
         new_customer = Customer(email=request.data['email'],
                                 last_name=request.data['last_name'],
                                 national_id=request.data['national_id'],

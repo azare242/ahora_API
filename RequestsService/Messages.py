@@ -5,6 +5,8 @@ PENDING = 'درخواست شما درحال بررسی است.'
 ACCESS_DENIED = 'شما دسترسی به این درخواست را ندارید'
 SUBMITTED = 'درخواست شما ثبت شد'
 RESUBMITTER = 'درخواست شما مجددا ثبت شد'
+DUPLICATE = 'یک درخواست درحال پیگیری/تایید شده برای این کد ملی وجود دارد'
+
 
 EMAIL_SUBJECT_APPROVED = "تایید درخواست"
 EMAIL_SUBJECT_SUBMIT = "ثبت درخواست"
