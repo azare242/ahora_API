@@ -9,7 +9,7 @@ def get_db(db):
             'ENGINE': 'django.db.backends.sqlite3',
              'NAME': BASE_DIR / 'db.sqlite3',
             }
-    }
+        }
     elif db == "POSTGRES":
         return {
             'default': {
