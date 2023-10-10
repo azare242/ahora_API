@@ -47,4 +47,4 @@ gunicorn --env DJANGO_SETTINGS_MODULE=ahora_API.settings ahora_API.wsgi:applicat
 
 
 
-thanks for read this useless readme (you know all of it I think
+thanks for read this useless readme (you know all of it already)
