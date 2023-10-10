@@ -8,6 +8,7 @@ from .serializers import CustomerSerializer
 from PIL import Image
 from .S3Service import S3
 from .imagga import Imagga_Request
+from .tasks import check_request
 @api_view(['GET'])
 def ping(request):
     return Response({"PING": "PONG"})
@@ -38,7 +39,8 @@ def submit_request(request):
         
         s3.insert_object(new_customer.img1.name)
         s3.insert_object(new_customer.img2.name)
-        
+        check_request.delay(new_customer)
+
         return Response({"message": "Your Request Submited"}, status=200)
     except:
         return Response({"message": "ERROR"}, status=400)
