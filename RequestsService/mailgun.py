@@ -1,5 +1,7 @@
 import requests
-from ahora_API.settings import MAILGUN_AUTH, MAILGUN_URL, MAILGUN_DOMAIN
+from ahora_API.settings import MAILGUN_AUTH, MAILGUN_DOMAIN
+
+MAILGUN_URL = 'https://api.mailgun.net/v3/%s/messages' % (MAILGUN_DOMAIN)
 
 def send_mail(subject, text, rcv):
     return requests.post(
@@ -17,4 +19,4 @@ def send_mail(subject, text, rcv):
 
 
 
-send_mail("aha", "aha2", "azare242@gmail.com")
+# send_mail("aha", "aha2", "azare242@gmail.com")

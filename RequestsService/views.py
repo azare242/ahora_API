@@ -8,7 +8,10 @@ from .serializers import CustomerSerializer
 from PIL import Image
 from .S3Service import S3
 from .imagga import Imagga_Request
-from .tasks import check_request
+from .tasks import check_request, send_mail_submit, send_mail_resubmit
+from .Messages import * 
+
+
 @api_view(['GET'])
 def ping(request):
     return Response({"PING": "PONG"})
@@ -27,6 +30,8 @@ def submit_request(request):
             
             customer_requests[0].state = "P"
             customer_requests[0].save()
+            send_mail_resubmit(customer_requests[0])
+            # check_request.delay(customer_requests[0])
             return Response({"message": "Your Request Submited Again"})
         new_customer = Customer(email=request.data['email'],
                                 last_name=request.data['last_name'],
@@ -39,8 +44,8 @@ def submit_request(request):
         
         s3.insert_object(new_customer.img1.name)
         s3.insert_object(new_customer.img2.name)
-        check_request.delay(new_customer)
-
+        send_mail_submit(new_customer)
+        # check_request.delay(new_customer)
         return Response({"message": "Your Request Submited"}, status=200)
     except:
         return Response({"message": "ERROR"}, status=400)
@@ -56,16 +61,16 @@ def get_status(request):
         national_id = request.data['national_id']
         customer = CustomerSerializer.objects.get(national_id=national_id)
         if client_ip != customer.user_ip:
-            return Response({"message": "Access Denied"})
+            return Response({"message": ACCESS_DENIED}, status=403)
         message = ''
         _s = customer.state
         if _s == "P":
-            message = 'pending'
+            message = PENDING
         elif _s == "r":
-            message = 'rejected'
+            message = REJECTED
         else:
-            message = 'approved'
-        return Response({"details": message})
+            message = APPROVED
+        return Response({"details": message}, status=200)
     except :
         return Response({"message": "ERROR"}, status=400)
         
