@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-y^ffvp!y#r6b44j!52%jw0g^faio&2rhh*w71s6l#38_=wi$g^'
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG", cast=bool)
 
 ALLOWED_HOSTS = ['*']
 STATIC_URL = '/staticfiles/'
@@ -81,13 +82,27 @@ WSGI_APPLICATION = 'ahora_API.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
+SQLITE = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+POSTGRES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': config("POSTGRES_NAME"), 
+        'USER': config("POSTGRES_USER"),
+        'PASSWORD': config("POSTGRES_PASSWORD"), 
+        'HOST': config("POSTGRES_HOST"), , 
+        'PORT': config("POSTGRES_PORT"), ,
+    }
+}
+DB = {
+    "SQLITE": SQLITE,
+    "POSTGRES": POSTGRES
+}
+DATABASES = DB[config("DB")]
 
 
 # Password validation
