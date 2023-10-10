@@ -82,27 +82,8 @@ WSGI_APPLICATION = 'ahora_API.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-SQLITE = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-POSTGRES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config("POSTGRES_NAME"), 
-        'USER': config("POSTGRES_USER"),
-        'PASSWORD': config("POSTGRES_PASSWORD"), 
-        'HOST': config("POSTGRES_HOST"), , 
-        'PORT': config("POSTGRES_PORT", cast=int),
-    }
-}
-DB = {
-    "SQLITE": SQLITE,
-    "POSTGRES": POSTGRES
-}
-DATABASES = DB[config("DB")]
+from .dbconf import get_db
+DATABASES = get_db(config("DB"))
 
 
 # Password validation

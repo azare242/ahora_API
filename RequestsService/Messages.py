@@ -42,4 +42,4 @@ EMAIL_RESUBMIT = \
 
 NO_FACE_IMG1 = 'عدم وجود چهره در تصویر اول'
 NO_FACE_IMG2 = 'عدم وجود چهره در تصویر دوم'
-LOW_SIMILARITY 'شباهت پایین دو تصویر'
+LOW_SIMILARITY ='شباهت پایین دو تصویر'
