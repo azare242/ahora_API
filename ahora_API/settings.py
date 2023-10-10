@@ -124,7 +124,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+# STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -161,4 +161,4 @@ IMAGGA_AUTH = 'Basic YWNjXzVmMTQ0NGZlNGQ4MTU3MDo0NjE1YThiN2Q3MWNiZTIwNDhhOTgwMzU
 
 MAILGUN_DOMAIN = 'sandbox7eef1bd54c7e49e097cb9f12f0bfafdd.mailgun.org'
 MAILGUN_AUTH = '0b6432a651c6863e8e1a23969428118d-5465e583-7acbf952'
-MAILGUN_URL = 'https://api.mailgun.net/v3/%s/messages' % (MAILGUN_DOMAIN)
+
