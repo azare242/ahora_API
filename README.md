@@ -11,7 +11,7 @@ first of all please open `.env.example` and fill the parameters and save it as `
 
 then install dependencies 
 ```bash
-pip3 install -r requierments.txt
+pip3 install -r requirements.txt
 ```
 
 
