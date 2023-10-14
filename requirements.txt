@@ -10,7 +10,6 @@ click==8.1.7
 click-didyoumean==0.3.0
 click-plugins==1.1.1
 click-repl==0.3.0
-decouple==0.0.7
 Django==4.2.4
 django-hashid-field==3.3.7
 djangorestframework==3.14.0
