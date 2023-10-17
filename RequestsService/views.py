@@ -10,8 +10,8 @@ from .S3Service import S3
 from .imagga import Imagga_Request
 from .tasks import check_request, send_mail_submit, send_mail_resubmit
 from .Messages import * 
-
-
+from .mailgun import send_mail
+from ipware import get_client_ip
 @api_view(['GET'])
 def ping(request):
     return Response({"PING": "PONG"})
@@ -20,7 +20,7 @@ def ping(request):
 def submit_request(request):
     
     try:
-        client_ip = request.META.get('REMOTE_ADDR')
+        client_ip, _ = get_client_ip(request)
         # print(Customer.objects.get(national_id = request.data['national_id']))
         customer_requests = Customer.objects.filter(national_id = request.data['national_id'])
         if len(customer_requests) != 0:
@@ -44,10 +44,11 @@ def submit_request(request):
         
         s3.insert_object(new_customer.img1.name)
         s3.insert_object(new_customer.img2.name)
-        send_mail_submit(new_customer)
+        send_mail_submit.delay(new_customer.email, new_customer.last_name)
         # check_request.delay(new_customer)
         return Response({"message": SUBMIT}, status=200)
     except Exception as exc:
+        print(exc)
         return Response({"message": str(exc)}, status=500)
     
     
@@ -77,21 +78,25 @@ def get_status(request):
         
         
         
-@api_view(['POST'])
+@api_view(['GET'])
 def test_images(request):
-    try:
-        customer = Customer.objects.get(email=request.data['email'])
-        s3 = S3()
-        imagga = Imagga_Request()
-        a= s3.get_object(customer.img1.name.split('/')[-1])
-        b= s3.get_object(customer.img2.name.split('/')[-1])
-        print(a)
-        c = imagga.detect(a)
-        print(c)
-        return Response({"a": "b"})
-    except Exception as exc:
-        print(exc)
-        return Response({"na": "da"})
+    # try:
+    #     customer = Customer.objects.get(email=request.data['email'])
+    #     s3 = S3()
+    #     imagga = Imagga_Request()
+    #     a= s3.get_object(customer.img1.name.split('/')[-1])
+    #     b= s3.get_object(customer.img2.name.split('/')[-1])
+    #     print(a)
+    #     c = imagga.detect(a)
+    #     print(c)
+    #     return Response({"a": "b"})
+    # except Exception as exc:
+    #     print(exc)
+    #     return Response({"na": "da"})
+    send_mail_submit.delay('محمدی', 'azare242@gmail.com')
+    # print(x)
+    _ip, _ = get_client_ip(request)
+    return Response({"Message": _ip})
 
 
 
