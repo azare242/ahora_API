@@ -135,8 +135,8 @@ HASHID_FIELD_ALLOW_INT_LOOKUP = True  # Allow looking up by integer value
 
 
 #Celery
-CELERY_BROKER_URL = \
-'amqps://fhisssit:L49-h0zwCZ5D4SKkQm9I25NMhfriMf0G@chimpanzee.rmq.cloudamqp.com/fhisssit'
+__i = 0
+CELERY_BROKER_URL = 'amqps://kbtcatkw:5PJuovGLGZGYDIBT_VGtzgHx-xqWCY6U@kangaroo.rmq.cloudamqp.com/kbtcatkw' if __i == 1 else "amqp://guest:guest@localhost:5672"
 
 
 #S3

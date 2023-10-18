@@ -44,11 +44,11 @@ def submit_request(request):
         
         s3.insert_object(new_customer.img1.name)
         s3.insert_object(new_customer.img2.name)
-        send_mail_submit.delay(new_customer.email, new_customer.last_name)
-        # check_request.delay(new_customer)
+        # send_mail_submit.delay(new_customer.email, new_customer.last_name)
+        # check_request.delay(new_customer.email, new_customer.last_name, new_customer.img1.name, new_customer.img2.name)
         return Response({"message": SUBMIT}, status=200)
     except Exception as exc:
-        print(exc)
+        new_customer.delete()
         return Response({"message": str(exc)}, status=500)
     
     
@@ -93,8 +93,11 @@ def test_images(request):
     # except Exception as exc:
     #     print(exc)
     #     return Response({"na": "da"})
-    send_mail_submit.delay('محمدی', 'azare242@gmail.com')
+    # send_mail_submit.delay('محمدی', 'azare242@gmail.com')
     # print(x)
+    s3 = S3()
+    img = s3.get_object(Customer.objects.get(email='azare242@gmail.com').img1.name)
+    print(img)
     _ip, _ = get_client_ip(request)
     return Response({"Message": _ip})
 

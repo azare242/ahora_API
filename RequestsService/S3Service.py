@@ -35,7 +35,7 @@ class S3:
                     Key=img_path.split('/')[-1]
                 )
         except Exception as exc:
-            raise Exception("error")
+            raise Exception(str(exc))
 
         return "DONE"
 
@@ -51,4 +51,5 @@ class S3:
             return open(path, 'rb')
         except Exception as exc:
             print(exc)
-            raise Exception("error")
+            raise Exception(str(exc))
+
