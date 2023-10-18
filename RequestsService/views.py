@@ -45,7 +45,7 @@ def submit_request(request):
         s3.insert_object(new_customer.img1.name)
         s3.insert_object(new_customer.img2.name)
         # send_mail_submit.delay(new_customer.email, new_customer.last_name)
-        # check_request.delay(new_customer.email, new_customer.last_name, new_customer.img1.name, new_customer.img2.name)
+        check_request.delay(new_customer.email, new_customer.last_name, new_customer.img1.name, new_customer.img2.name)
         return Response({"message": SUBMIT}, status=200)
     except Exception as exc:
         new_customer.delete()
@@ -59,9 +59,11 @@ def submit_request(request):
 @api_view(['POST'])
 def get_status(request):
     try:
-        client_ip = request.META.get('REMOTE_ADDR')
+        # client_ip = request.META.get('REMOTE_ADDR')
+        client_ip, _ = get_client_ip(request)
+            
         national_id = request.data['national_id']
-        customer = CustomerSerializer.objects.get(national_id=national_id)
+        customer = Customer.objects.get(national_id=national_id)
         if client_ip != customer.user_ip:
             return Response({"message": ACCESS_DENIED}, status=403)
         message = ''

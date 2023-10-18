@@ -37,7 +37,7 @@ class S3:
         except Exception as exc:
             raise Exception(str(exc))
 
-        return "DONE"
+        print("DONE" + path)
 
     def get_object(self, key):
         path = './staticfiles/web/media/downloaded/' + key
