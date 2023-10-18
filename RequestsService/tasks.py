@@ -31,9 +31,11 @@ def check_request(email, last_name, img1_path, img2_path):
     s3 = S3()
     imagga_ = Imagga_Request() 
     print(img1_path, img2_path)
-    img1 = s3.get_object(img1_path)
-    img2 = s3.get_object(img1_path)
-    (dt1, face_id1) = imagga_.detect(img1)
+    file1 = open('./staticfiles/web/media/%s' % img1_path, 'rb')
+    file2 = open('./staticfiles/web/media/%s' % img2_path, 'rb')
+    # img1 = s3.get_object(img1_path)
+    # img2 = s3.get_object(img1_path)
+    (dt1, face_id1) = imagga_.detect(file1)
     if (dt1 < 80.0):
         # customer.state = "R"
         send_mail(EMAIL_SUBJECT_REJECT, 
@@ -42,7 +44,7 @@ def check_request(email, last_name, img1_path, img2_path):
         )
         return
     
-    (dt2, face_id2) = imagga_.detect(img2)
+    (dt2, face_id2) = imagga_.detect(file2)
     if (dt2 < 80.0):
         # customer.state = "R"
         send_mail(EMAIL_SUBJECT_REJECT, 
