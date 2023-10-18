@@ -58,7 +58,7 @@ def check_request(email, last_name, img1_path, img2_path):
         # customer.state = "A"
         send_mail(
             EMAIL_SUBJECT_APPROVED,
-            EMAIL_SUBMIT % last_name,
+            EMAIL_APPROVED % last_name,
             email
         )
         
