@@ -40,6 +40,7 @@ class S3:
         print("DONE" + path)
 
     def get_object(self, key):
+        
         path = './staticfiles/web/media/downloaded/' + key
         try:
             bucket = self.resource.Bucket('cloudhw-ahora')
