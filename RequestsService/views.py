@@ -31,7 +31,11 @@ def submit_request(request):
             customer_requests[0].state = "P"
             customer_requests[0].save()
             send_mail_resubmit(customer_requests[0])
-            # check_request.delay(customer_requests[0])
+            check_request.delay(customer_requests[0].email,
+                                customer_requests[0].last_name,
+                                customer_requests[0].img1.name.split('/')[-1],
+                                customer_requests[0].img2.name.split('/')[-1])
+            
             return Response({"message": RESUBMIT}, status=200)
         new_customer = Customer(email=request.data['email'],
                                 last_name=request.data['last_name'],
@@ -44,8 +48,14 @@ def submit_request(request):
         
         s3.insert_object(new_customer.img1.name)
         s3.insert_object(new_customer.img2.name)
-        send_mail_submit.delay(new_customer.email, new_customer.last_name)
-        check_request.delay(new_customer.email, new_customer.last_name, new_customer.img1.name.split('/')[-1], new_customer.img2.name.split('/')[-1])
+        send_mail_submit.delay(new_customer.email,
+                               new_customer.last_name
+                               )
+        check_request.delay(new_customer.email,
+                            new_customer.last_name,
+                            new_customer.img1.name.split('/')[-1],
+                            new_customer.img2.name.split('/')[-1]
+                            )
         return Response({"message": SUBMIT}, status=200)
     except Exception as exc:
         new_customer.delete()
