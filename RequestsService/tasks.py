@@ -30,41 +30,45 @@ def send_mail_resubmit(ln, em):
 def check_request(email, last_name, img1_path, img2_path):
     s3 = S3()
     imagga_ = Imagga_Request() 
-    print(img1_path, img2_path)
-    file1 = open('./staticfiles/web/media/%s' % img1_path, 'rb')
-    file2 = open('./staticfiles/web/media/%s' % img2_path, 'rb')
-    # img1 = s3.get_object(img1_path)
-    # img2 = s3.get_object(img1_path)
-    (dt1, face_id1) = imagga_.detect(file1)
-    if (dt1 < 80.0):
-        # customer.state = "R"
-        send_mail(EMAIL_SUBJECT_REJECT, 
-        EMAIL_REJECTED % (last_name,NO_FACE_IMG1),
-        email
-        )
-        return
+    print(img1_path)
+    print(img2_path)
+    # print(img1_path, img2_path)
+    # file1 = open('./staticfiles/web/media/%s' % img1_path, 'rb')
+    # file2 = open('./staticfiles/web/media/%s' % img2_path, 'rb')
+    img1 = s3.get_object(img1_path)
+    img2 = s3.get_object(img1_path)
+    print(img1)
+    print(img2)
+    # (dt1, face_id1) = imagga_.detect(file1)
+    # if (dt1 < 80.0):
+    #     # customer.state = "R"
+    #     send_mail(EMAIL_SUBJECT_REJECT, 
+    #     EMAIL_REJECTED % (last_name,NO_FACE_IMG1),
+    #     email
+    #     )
+    #     return
     
-    (dt2, face_id2) = imagga_.detect(file2)
-    if (dt2 < 80.0):
-        # customer.state = "R"
-        send_mail(EMAIL_SUBJECT_REJECT, 
-        EMAIL_REJECTED % (last_name,NO_FACE_IMG2),
-        email
-        )
-        return
+    # (dt2, face_id2) = imagga_.detect(file2)
+    # if (dt2 < 80.0):
+    #     # customer.state = "R"
+    #     send_mail(EMAIL_SUBJECT_REJECT, 
+    #     EMAIL_REJECTED % (last_name,NO_FACE_IMG2),
+    #     email
+    #     )
+    #     return
     
-    score = imagga_.similarity(face_id1, face_id2)
-    if (score >= 80.0):
-        # customer.state = "A"
-        send_mail(
-            EMAIL_SUBJECT_APPROVED,
-            EMAIL_APPROVED % last_name,
-            email
-        )
+    # score = imagga_.similarity(face_id1, face_id2)
+    # if (score >= 80.0):
+    #     # customer.state = "A"
+    #     send_mail(
+    #         EMAIL_SUBJECT_APPROVED,
+    #         EMAIL_APPROVED % last_name,
+    #         email
+    #     )
         
-    else:
-        # customer.state = "R"
-        send_mail(EMAIL_SUBJECT_REJECT, 
-        EMAIL_REJECTED % (last_name, LOW_SIMILARITY),
-        email
-        )
+    # else:
+    #     # customer.state = "R"
+    #     send_mail(EMAIL_SUBJECT_REJECT, 
+    #     EMAIL_REJECTED % (last_name, LOW_SIMILARITY),
+    #     email
+    #     )
