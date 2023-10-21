@@ -21,7 +21,6 @@ def submit_request(request):
     
     try:
         client_ip, _ = get_client_ip(request)
-        # print(Customer.objects.get(national_id = request.data['national_id']))
         customer_requests = Customer.objects.filter(national_id = request.data['national_id'])
         if len(customer_requests) != 0:
             for req in customer_requests:
@@ -69,7 +68,6 @@ def submit_request(request):
 @api_view(['POST'])
 def get_status(request):
     try:
-        # client_ip = request.META.get('REMOTE_ADDR')
         client_ip, _ = get_client_ip(request)
             
         national_id = request.data['national_id']
@@ -91,36 +89,6 @@ def get_status(request):
         
         
 @api_view(['GET'])
-def test_images(request):
-    # try:
-    #     customer = Customer.objects.get(email=request.data['email'])
-    #     s3 = S3()
-    #     imagga = Imagga_Request()
-    #     a= s3.get_object(customer.img1.name.split('/')[-1])
-    #     b= s3.get_object(customer.img2.name.split('/')[-1])
-    #     print(a)
-    #     c = imagga.detect(a)
-    #     print(c)
-    #     return Response({"a": "b"})
-    # except Exception as exc:
-    #     print(exc)
-    #     return Response({"na": "da"})
-    # send_mail_submit.delay('محمدی', 'azare242@gmail.com')
-    # print(x)
-    s3 = S3()
-    img = s3.get_object(Customer.objects.get(email='azare242@gmail.com').img1.name)
-    print(img)
+def echo_ip(request):
     _ip, _ = get_client_ip(request)
     return Response({"Message": _ip})
-
-
-
-@api_view(['GET'])
-def run_s3(request):
-    msg = ''
-    try:
-        s3 = S3()
-        msg = 'ok'
-    except Exception as ex:
-        msg = 'error'
-    return Response({"message" : msg})

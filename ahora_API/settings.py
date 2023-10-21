@@ -130,31 +130,31 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # AUTH_USER_MODEL = 'RequestsService.CustomUser'
 
-HASHID_FIELD_SALT = '$oknhgfcv$!#$!@$mkloiuy8767$#!$@#8490398!#@$!'  # Replace with your secret salt
+HASHID_FIELD_SALT = config("SALT")  # Replace with your secret salt
 HASHID_FIELD_ALLOW_INT_LOOKUP = True  # Allow looking up by integer value
 
 
 #Celery
 __i = 0
-CELERY_BROKER_URL = 'amqps://kbtcatkw:5PJuovGLGZGYDIBT_VGtzgHx-xqWCY6U@kangaroo.rmq.cloudamqp.com/kbtcatkw' if __i == 1 else "amqp://guest:guest@localhost:5672"
+CELERY_BROKER_URL = config("RABBITMQURL") if __i == 1 else "amqp://guest:guest@localhost:5672"
 
 
 #S3
-S3_ENDPOINT = 'https://cloudhw-ahora.s3.ir-tbz-sh1.arvanstorage.ir'
-S3_ACCESS_KEY = '7af1a7fd-876b-41e6-ba85-d070c78e8c9c'
-S3_SECRET_KEY = 'efa744fce877e3d4d064a5a830a97f93fe94576b92100530e0ad2c676eb0dfe0'
+S3_ENDPOINT = config("S3_ENDPOINT")
+S3_ACCESS_KEY = config("S3_ACCESS_KEY")
+S3_SECRET_KEY = config("S3_SECRET_KEY")
 
 
 
 #IMAGGA
-IMAGGA_API_KEY = 'acc_5f1444fe4d81570'
-IMAGGA_SECRET_KEY = '4615a8b7d71cbe2048a9803566b857c3'
-IMAGGA_AUTH = 'Basic YWNjXzVmMTQ0NGZlNGQ4MTU3MDo0NjE1YThiN2Q3MWNiZTIwNDhhOTgwMzU2NmI4NTdjMw=='
+IMAGGA_API_KEY = config("IMAGGA_API_KEY")
+IMAGGA_SECRET_KEY = config("IMAGGA_SECRET_KEY")
+IMAGGA_AUTH = config("IMAGGA_AUTH")
 
 
 
 #MAILGUN
 
-MAILGUN_DOMAIN = 'sandbox7eef1bd54c7e49e097cb9f12f0bfafdd.mailgun.org'
-MAILGUN_AUTH = '0b6432a651c6863e8e1a23969428118d-5465e583-7acbf952'
+MAILGUN_DOMAIN = config("MAILGUN_DOMAIN")
+MAILGUN_AUTH = config("MAILGUN_AUTH")
 
