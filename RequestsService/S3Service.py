@@ -6,6 +6,8 @@ from ahora_API.settings import S3_ACCESS_KEY, S3_SECRET_KEY, S3_ENDPOINT
 
 import boto3
 
+import os
+
 class S3:
     _instance = None
 
@@ -39,8 +41,14 @@ class S3:
 
         print("DONE" + path)
 
+    def __check_downloaded_folder():
+        if not os.path.exists('./staticfiles/web/media/downloaded'):
+            os.makedirs('./staticfiles/web/media/downloaded')
+        
+
     def get_object(self, key):
         
+        self.__check_downloaded_folder()
         path = './staticfiles/web/media/downloaded/' + key
         try:
             bucket = self.resource.Bucket('cloudhw-ahora')
