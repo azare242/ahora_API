@@ -41,7 +41,7 @@ class S3:
 
         print("DONE" + path)
 
-    def __check_downloaded_folder():
+    def __check_downloaded_folder(self):
         if not os.path.exists('./staticfiles/web/media/downloaded'):
             os.makedirs('./staticfiles/web/media/downloaded')
         
