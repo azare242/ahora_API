@@ -92,7 +92,7 @@ def get_status(request):
 def testing(request):
     try:
         res = validate_mail("wolvahor@gmail.com")
-        return Response(res.json, status=200)
+        return Response(res.json(), status=200)
     except Exception as exc:
         print(exc)
         return Response({"message": str(exc)}, status=500)
