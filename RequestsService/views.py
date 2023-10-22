@@ -91,8 +91,7 @@ def get_status(request):
 @api_view(['GET'])
 def testing(request):
     try:
-        res = validate_mail("wolvahor@gmail.com")
-        return Response(res.json(), status=200)
+        return Response({"message": "there is no test here"}, status=200)
     except Exception as exc:
         print(exc)
         return Response({"message": str(exc)}, status=500)

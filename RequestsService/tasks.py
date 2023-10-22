@@ -3,12 +3,10 @@ from RequestsService.models import Customer
 from RequestsService.S3Service import S3
 from RequestsService.imagga import Imagga_Request
 from RequestsService.Messages import *
-from RequestsService.mailgun import send_mail, validate_mail
-
+from RequestsService.mailgun import send_mail
 
 @shared_task
 def send_mail_submit(ln, em):
-    validate_mail(em)
     send_mail(
         EMAIL_SUBJECT_SUBMIT,
         EMAIL_SUBMIT % ln,
