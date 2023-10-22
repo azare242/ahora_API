@@ -21,6 +21,7 @@ class Imagga_Request:
             auth=self.__auth,
             files={'image': image},
         ).json()
+        print(res)
         confidence = res['result']['faces'][0]['confidence']
         face_id = res['result']['faces'][0]['face_id']
         return (confidence, face_id)
