@@ -10,7 +10,7 @@ from .S3Service import S3
 from .imagga import Imagga_Request
 from .tasks import check_request, send_mail_submit, send_mail_resubmit
 from .Messages import * 
-from .mailgun import send_mail
+from .mailgun import send_mail, validate_mail
 from ipware import get_client_ip
 @api_view(['GET'])
 def ping(request):
@@ -91,8 +91,8 @@ def get_status(request):
 @api_view(['GET'])
 def testing(request):
     try:
-        send_mail_submit.delay('alireza', 'azare242@gmail.com')
-        return Response({"message": "DONE"}, status=200)
+        res = validate_mail("wolvahor@gmail.com")
+        return Response(res.json, status=200)
     except Exception as exc:
         print(exc)
         return Response({"message": str(exc)}, status=500)
