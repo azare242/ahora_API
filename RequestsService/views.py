@@ -93,7 +93,8 @@ def testing(request):
         send_mail_submit.delay('alireza', 'azare242@gmail.com')
         return Response({"message": "DONE"}, status=200)
     except Exception as exc:
-        return Response({"message": str(exc)}, status=200)
+        print(exc)
+        return Response({"message": str(exc)}, status=500)
                 
 @api_view(['GET'])
 def echo_ip(request):
