@@ -1,9 +1,4 @@
-import boto3
-
-from botocore.exceptions import ClientError
-#import logging
 from ahora_API.settings import S3_ACCESS_KEY, S3_SECRET_KEY, S3_ENDPOINT
-
 import boto3
 
 import os

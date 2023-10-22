@@ -47,6 +47,7 @@ def submit_request(request):
         
         s3.insert_object(new_customer.img1.name)
         s3.insert_object(new_customer.img2.name)
+        
         send_mail_submit.delay(new_customer.email,
                                new_customer.last_name
                                )
