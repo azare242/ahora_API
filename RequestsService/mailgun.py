@@ -2,7 +2,7 @@ import requests
 from ahora_API.settings import MAILGUN_AUTH, MAILGUN_DOMAIN
 
 MAILGUN_URL_SEND = 'https://api.mailgun.net/v3/%s/messages' % (MAILGUN_DOMAIN)
-MAILGUN_URL_VALIDATE = 
+MAILGUN_URL_VALIDATE = "https://api.mailgun.net/v4/address/validate"
 def send_mail(subject, text, rcv):
     return requests.post(
         MAILGUN_URL_SEND,
