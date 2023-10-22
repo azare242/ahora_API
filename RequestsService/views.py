@@ -90,7 +90,7 @@ def get_status(request):
 @api_view(['GET'])
 def testing(request):
     try:
-        send_mail_submit('alireza', 'azare242@gmail.com')
+        send_mail_submit.delay('alireza', 'azare242@gmail.com')
         return Response({"message": "DONE"}, status=200)
     except Exception as exc:
         return Response({"message": str(exc)}, status=200)
