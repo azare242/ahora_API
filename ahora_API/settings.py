@@ -135,7 +135,7 @@ HASHID_FIELD_ALLOW_INT_LOOKUP = True  # Allow looking up by integer value
 
 
 #Celery
-__i = 0
+__i = 1
 CELERY_BROKER_URL = config("RABBITMQURL") if __i == 1 else "amqp://guest:guest@localhost:5672"
 
 
