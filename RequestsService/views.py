@@ -10,7 +10,7 @@ from .S3Service import S3
 from .imagga import Imagga_Request
 from .tasks import check_request, send_mail_submit, send_mail_resubmit
 from .Messages import * 
-from .mailgun import send_mail, validate_mail
+from .mailgun import send_mail
 from ipware import get_client_ip
 @api_view(['GET'])
 def ping(request):
