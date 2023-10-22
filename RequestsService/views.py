@@ -87,7 +87,14 @@ def get_status(request):
         return Response({"message": str(exc)}, status=500)
         
         
-        
+@api_view(['GET'])
+def testing(request):
+    try:
+        send_mail_submit('alireza', 'azare242@gmail.com')
+        return Response({"message": "DONE"}, status=200)
+    except Exception as exc:
+        return Response({"message": str(exc)}, status=200)
+                
 @api_view(['GET'])
 def echo_ip(request):
     _ip, _ = get_client_ip(request)
